@@ -14,7 +14,7 @@ printf 'Package: *\nPin: release a=unstable\nPin-Priority: 150\n' > /etc/apt/pre
 apt update
 apt install wireguard-dkms wireguard-tools resolvconf -y
 ```
-wgcf生成WireGuard配置
+## wgcf生成WireGuard配置
 
 下载wgcf
 ```
