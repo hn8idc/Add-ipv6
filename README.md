@@ -53,6 +53,6 @@ wg-quick down wgcf-profile
 ```
 systemctl enable wg-quick@wgcf-profile
 ```
-完事收工
+重启VPS,完事收工
 
 
