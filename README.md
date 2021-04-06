@@ -3,7 +3,7 @@
 ## 安装WireGuard
 先安装linux-headers
 ```
-apt update
+apt update && apt upgrade && apt dist-upgrade
 apt install linux-headers-$(uname -r) -y
 ```
  
