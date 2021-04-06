@@ -56,3 +56,34 @@ systemctl enable wg-quick@wgcf-profile
 重启VPS,完事收工
 
 
+## 让奈飞走IPV6线路
+修改V2的配置文件
+```
+"outbounds": [
+  {
+    "tag":"IPv4_out",
+    "protocol": "freedom"
+  },
+  {
+    "tag":"IPv6_out",
+    "protocol": "freedom",
+    "settings": {
+      "domainStrategy": "UseIPv6"
+    }
+  }
+],
+"routing": {
+  "rules": [
+    {
+      "type": "field",
+      "outboundTag": "IPv6_out",
+      "domain": ["geosite:netflix","nflxvideo.net","nflxext.com","nflxso.net"]
+    },
+    {
+      "type": "field",
+      "outboundTag": "IPv4_out",
+      "network": "udp,tcp"
+    }
+  ]
+}
+```
