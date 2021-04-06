@@ -49,6 +49,11 @@ export WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1
 wg-quick up wgcf-profile
 wg-quick down wgcf-profile
 ```
+测试IPV6是否开启成功,若有返回即成功
+```
+curl ipv6.ip.sb
+```
+
 设置开机自启动
 ```
 systemctl enable wg-quick@wgcf-profile
