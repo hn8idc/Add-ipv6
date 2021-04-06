@@ -87,3 +87,15 @@ systemctl enable wg-quick@wgcf-profile
   ]
 }
 ```
+
+## 第二种傻瓜式方法
+#### 第一步 
+升级系统内核并重启,可尝试直接第二步是否能直接运行
+``` bash
+apt update && apt install curl lsb-release -y && echo "deb http://deb.debian.org/debian $(lsb_release -sc)-backports main" | tee /etc/apt/sources.list.d/backports.list && apt update && apt -t $(lsb_release -sc)-backports install linux-image-$(dpkg --print-architecture) linux-headers-$(dpkg --print-architecture) --install-recommends -y && reboot
+```
+#### 第二步
+一键WARP解锁ipv6，请自行备份wgcf-profile.conf以便重装系统之后还原使用
+``` bash
+apt update && apt install curl lsb-release -y && echo "deb http://deb.debian.org/debian $(lsb_release -sc)-backports main" | tee /etc/apt/sources.list.d/backports.list && apt update && apt install net-tools iproute2 openresolv dnsutils -y && apt install wireguard-tools --no-install-recommends && curl -fsSL git.io/wgcf.sh | bash && wgcf register && wgcf generate && sed -i '/0.0.0.0/d' ./wgcf-profile.conf  && sed -i 's/engage.cloudflareclient.com/162.159.192.1/g' ./wgcf-profile.conf && sed -i 's/1.1.1.1/9.9.9.10,8.8.8.8,1.1.1.1,8.8.4.4/g' ./wgcf-profile.conf && cp wgcf-profile.conf /etc/wireguard/wgcf.conf && systemctl start wg-quick@wgcf && systemctl enable wg-quick@wgcf && grep -qE '^[ ]*label[ ]*2002::/16[ ]*2' /etc/gai.conf || echo 'label 2002::/16   2' | tee -a /etc/gai.conf
+```
